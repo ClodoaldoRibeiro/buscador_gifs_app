@@ -13,21 +13,21 @@ As tecnologias usadas até o momento são:
 
 * [Flutter SDK ](https://flutter.dev/docs/get-started/install/windows) - SDK Flutter para rodar as aplicações 
 * [Android Studio 4.0](https://developer.android.com/studio) - Ambiente de desenvolvimento
-* [Site do GIPHY](https://giphy.com/explore/brasil) - Recupera as GIF's
+* [API GIPHY](https://giphy.com/explore/brasil) - Recupera as GIF's
 
 ## Instruções de uso
 Apenas fazer o donwlod do [app-debug.apk](https://github.com/ClodoaldoRibeiro/conversor_moedas_app/blob/master/screenshots/app-debug.apk) e executar no android.
 
 ## Telas
 <p align="center">
-<img src="https://github.com/ClodoaldoRibeiro/conversor_moedas_app/blob/master/screenshots/01.jpeg" alt="ClodoaldoRibeiro"/>
-<h5 align="center">Tela1: Home1</h5>
+<img src="https://github.com/ClodoaldoRibeiro/buscador_gifs_app/blob/master/screenshots/01.jpeg" alt="ClodoaldoRibeiro"/>
+<h5 align="center">Tela1: Home</h5>
 </p>
 <br /> 
 <br /> 
 <br /> 
 <p align="center">
-<img src="https://github.com/ClodoaldoRibeiro/conversor_moedas_app/blob/master/screenshots/02.jpeg" alt="ClodoaldoRibeiro"/>
+<img src="https://github.com/ClodoaldoRibeiro/buscador_gifs_app/blob/master/screenshots/02.jpeg" alt="ClodoaldoRibeiro"/>
 <h5 align="center">Tela2: Detalhes da GIF </h5>
 </p>
 
