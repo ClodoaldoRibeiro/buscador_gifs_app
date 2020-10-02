@@ -14,6 +14,7 @@ ThemeData _temaPadrao() {
   return ThemeData(
       hintColor: Colors.white,
       primaryColor: Colors.white,
+      bottomAppBarColor: Colors.white,
       inputDecorationTheme: InputDecorationTheme(
         enabledBorder:
             OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),

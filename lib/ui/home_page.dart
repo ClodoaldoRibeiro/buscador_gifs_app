@@ -2,6 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:share/share.dart';
+
+import 'package:buscador_gifs_app/ui/detalhesGIF_page.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,9 +19,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _getGIFs().then((value) {
-      print(value);
-    });
+    _getGIFs().then((value) {});
   }
 
   @override
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   int _getCount(List data) {
-    if (_pesquisa == null) {
+    if (_pesquisa == null || _pesquisa.isEmpty) {
       return data.length;
     } else {
       return data.length + 1;
@@ -101,13 +103,27 @@ class _HomePageState extends State<HomePage> {
         itemCount: _getCount(snapshot.data["data"]),
         // ignore: missing_return
         itemBuilder: (context, index) {
-          if (_pesquisa == null || index < snapshot.data["data"].length) {
+          if (((_pesquisa == null || _pesquisa.isEmpty)) ||
+              index < snapshot.data["data"].length) {
             return GestureDetector(
-              child: Image.network(
-                snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+              child: FadeInImage.memoryNetwork(
+                placeholder: kTransparentImage,
+                image: snapshot.data["data"][index]["images"]["fixed_height"]
+                    ["url"],
                 height: 300.0,
                 fit: BoxFit.cover,
               ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            GifPage(snapshot.data["data"][index])));
+              },
+              onLongPress: () {
+                Share.share(snapshot.data["data"][index]["images"]
+                    ["fixed_height"]["url"]);
+              },
             );
           } else {
             return GestureDetector(
@@ -128,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              onTap: (){
+              onTap: () {
                 setState(() {
                   _quantade += 19;
                 });
@@ -145,7 +161,7 @@ class _HomePageState extends State<HomePage> {
         "https://api.giphy.com/v1/gifs/search?api_key=4NhMNahVyFR888LczkllWFi9T485CZKA&q=$_pesquisa&limit=19&offset=$_quantade&rating=g&lang=pt";
     http.Response response;
 
-    if (_pesquisa == null) {
+    if (_pesquisa == null || _pesquisa.isEmpty) {
       response = await http.get(melhoresGIFs);
     } else {
       response = await http.get(PesuisaGIFs);
