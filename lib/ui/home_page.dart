@@ -43,6 +43,12 @@ class _HomePageState extends State<HomePage> {
                   border: OutlineInputBorder()),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 18.0, color: Colors.white),
+              onSubmitted: (text) {
+                setState(() {
+                  _pesquisa = text;
+                  _quantade = 0;
+                });
+              },
             ),
           ),
           Expanded(
@@ -76,15 +82,67 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  int _getCount(List data) {
+    if (_pesquisa == null) {
+      return data.length;
+    } else {
+      return data.length + 1;
+    }
+  }
+
   Widget _criarTabelaGIFs(BuildContext context, AsyncSnapshot snapshot) {
-    return Container();
+    return GridView.builder(
+        padding: EdgeInsets.all(15.0),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10.0,
+          mainAxisSpacing: 10.0,
+        ),
+        itemCount: _getCount(snapshot.data["data"]),
+        // ignore: missing_return
+        itemBuilder: (context, index) {
+          if (_pesquisa == null || index < snapshot.data["data"].length) {
+            return GestureDetector(
+              child: Image.network(
+                snapshot.data["data"][index]["images"]["fixed_height"]["url"],
+                height: 300.0,
+                fit: BoxFit.cover,
+              ),
+            );
+          } else {
+            return GestureDetector(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 70.0,
+                  ),
+                  Text(
+                    "Buscar mais..",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                    ),
+                  )
+                ],
+              ),
+              onTap: (){
+                setState(() {
+                  _quantade += 19;
+                });
+              },
+            );
+          }
+        });
   }
 
   Future<Map> _getGIFs() async {
     final String melhoresGIFs =
         "https://api.giphy.com/v1/gifs/trending?api_key=4NhMNahVyFR888LczkllWFi9T485CZKA&limit=20&rating=g";
     final String PesuisaGIFs =
-        "https://api.giphy.com/v1/gifs/search?api_key=4NhMNahVyFR888LczkllWFi9T485CZKA&q=$_pesquisa&limit=20&offset=$_quantade&rating=g&lang=pt";
+        "https://api.giphy.com/v1/gifs/search?api_key=4NhMNahVyFR888LczkllWFi9T485CZKA&q=$_pesquisa&limit=19&offset=$_quantade&rating=g&lang=pt";
     http.Response response;
 
     if (_pesquisa == null) {
