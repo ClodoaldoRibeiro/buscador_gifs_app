@@ -16,7 +16,6 @@ As tecnologias usadas até o momento são:
 * [API GIPHY](https://giphy.com/explore/brasil) - Recupera as GIF's
 
 ## Instruções de uso
-Apenas fazer o donwlod do [app-debug.apk](https://github.com/ClodoaldoRibeiro/conversor_moedas_app/blob/master/screenshots/app-debug.apk) e executar no android.
 
 ## Telas
 <p align="center">
